@@ -207,7 +207,7 @@ app.get("/api/registrations", adminAuthMiddleware, async (req, res) => {
 });
 
 // 3. Register a new student
-app.post("/api/registrations", adminAuthMiddleware, async (req, res) => {
+app.post("/api/registrations", async (req, res) => {
   const data = req.body;
   if (!data.nombre || !data.correo) {
     return res.status(400).json({ error: "Required fields 'nombre' or 'correo' missing." });
