@@ -1,0 +1,6 @@
+{
+  "name": "Inscripción y Matrícula - Escuela de Música Agost",
+  "description": "Aplicación web para la inscripción de socios y la matrícula de alumnos de la Escuela de Música Santa Cecilia de Agost.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
