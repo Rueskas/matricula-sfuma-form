@@ -47,6 +47,7 @@ interface Registration {
   correo: string;
   esMenor: boolean;
   tutor?: TutorInfo;
+  tutorAlt?: TutorInfo;
   esNuevoSocio: boolean;
   modalidadSocio?: string;
   banco: BankInfo;
@@ -96,6 +97,9 @@ if (dbUrl) {
             tutor_nombre VARCHAR(255),
             tutor_dni VARCHAR(50),
             tutor_telefono VARCHAR(50),
+            tutor_nombre_alt VARCHAR(255),
+            tutor_dni_alt VARCHAR(50),
+            tutor_telefono_alt VARCHAR(50),
             es_nuevo_socio BOOLEAN NOT NULL,
             modalidad_socio VARCHAR(50),
             banco_entidad VARCHAR(255) NOT NULL,
@@ -174,6 +178,11 @@ function mapRowToRegistration(row: any): Registration {
       dni: row.tutor_dni || "",
       telefono: row.tutor_telefono || "",
     } : undefined,
+    tutorAlt: row.es_menor ? {
+      nombre: row.tutor_nombre_alt || "",
+      dni: row.tutor_dni_alt || "",
+      telefono: row.tutor_telefono_alt || "",
+    } : undefined,
     esNuevoSocio: row.es_nuevo_socio,
     modalidadSocio: row.modalidad_socio || undefined,
     banco: {
@@ -226,10 +235,10 @@ app.post("/api/registrations", async (req, res) => {
         INSERT INTO registrations (
           id, fecha_registro, nombre, dni_nia, fecha_nacimiento, direccion,
           codigo_postal, localidad, provincia, telefono, correo, es_menor,
-          tutor_nombre, tutor_dni, tutor_telefono, es_nuevo_socio, modalidad_socio,
+          tutor_nombre, tutor_dni, tutor_telefono,  tutor_nombre_alt, tutor_dni_alt, tutor_telefono_alt, es_nuevo_socio, modalidad_socio,
           banco_entidad, banco_titular, banco_iban, consent_proteccion_datos,
           consent_tratamiento_informativo, consent_domiciliacion_bancaria, consent_fotografias_y_videos
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27)
       `, [
         newReg.id,
         newReg.fechaRegistro,
@@ -246,6 +255,9 @@ app.post("/api/registrations", async (req, res) => {
         newReg.tutor?.nombre || null,
         newReg.tutor?.dni || null,
         newReg.tutor?.telefono || null,
+        newReg.tutorAlt?.nombre || null,
+        newReg.tutorAlt?.dni || null,
+        newReg.tutorAlt?.telefono || null,
         newReg.esNuevoSocio,
         newReg.modalidadSocio || null,
         newReg.banco?.entidad || "",
@@ -396,7 +408,7 @@ app.post("/api/registrations/mock", adminAuthMiddleware, async (req, res) => {
             INSERT INTO registrations (
               id, fecha_registro, nombre, dni_nia, fecha_nacimiento, direccion,
               codigo_postal, localidad, provincia, telefono, correo, es_menor,
-              tutor_nombre, tutor_dni, tutor_telefono, es_nuevo_socio, modalidad_socio,
+              tutor_nombre, tutor_dni, tutor_telefono, tutor_nombre_alt, tutor_dni_alt, tutor_telefono_alt,  es_nuevo_socio, modalidad_socio,
               banco_entidad, banco_titular, banco_iban, consent_proteccion_datos,
               consent_tratamiento_informativo, consent_domiciliacion_bancaria, consent_fotografias_y_videos
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
@@ -416,6 +428,9 @@ app.post("/api/registrations/mock", adminAuthMiddleware, async (req, res) => {
             reg.tutor?.nombre || null,
             reg.tutor?.dni || null,
             reg.tutor?.telefono || null,
+            reg.tutorAlt?.nombre || null,
+            reg.tutorAlt?.dni || null,
+            reg.tutorAlt?.telefono || null,
             reg.esNuevoSocio,
             reg.modalidadSocio || null,
             reg.banco.entidad,

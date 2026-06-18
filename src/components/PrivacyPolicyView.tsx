@@ -63,8 +63,8 @@ export default function PrivacyPolicyView({ onBackToForm }: PrivacyPolicyProps) 
           </div>
           <p className="text-slate-600">
             <strong>Sociedad Filarmónica Unión Musical de Agost</strong><br />
-            Avda. de la Pau, 4 - 03698 Agost (Alicante)<br />
-            info@musicaagost.es
+            Avenida de Alicante, 23 - 03698 Agost (Alicante)<br />
+            unionmusicalagost@hotmail.com
           </p>
         </div>
 
@@ -174,7 +174,7 @@ export default function PrivacyPolicyView({ onBackToForm }: PrivacyPolicyProps) 
             Acceso, rectificación, supresión, limitación, oposición y portabilidad.
           </p>
           <p className="mt-2 text-slate-600">
-            Ejercicio: <strong>info@musicaagost.es</strong>
+            Ejercicio: <strong>unionmusicalagost@hotmail.com</strong>
           </p>
           <p className="text-xs text-slate-500 mt-2">
             También puede reclamar ante la AEPD: https://www.aepd.es
@@ -209,8 +209,8 @@ export default function PrivacyPolicyView({ onBackToForm }: PrivacyPolicyProps) 
         <section>
           <h2 className="font-bold text-sm text-[#001c11] uppercase border-b border-slate-100 pb-1">12. Contacto</h2>
           <p className="text-slate-600 mt-2">
-            info@musicaagost.es<br />
-            Avda. de la Pau, 4, 03698 Agost (Alicante)
+            unionmusicalagost@hotmail.com<br />
+            Avenida de Alicante, 23. 03698 Agost (Alicante)
           </p>
         </section>
 

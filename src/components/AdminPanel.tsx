@@ -68,7 +68,7 @@ export default function AdminPanel({
     const headers = [
       'ID', 'Fecha Registro', 'Nombre Alumno', 'DNI_NIA', 'Fecha Nacimiento', 
       'Direccion', 'Codigo Postal', 'Localidad', 'Provincia', 'Telefono', 'Correo', 
-      'Es Menor', 'Nombre Tutor', 'DNI Tutor', 'Telefono Tutor', 
+      'Es Menor', 'Nombre Tutor', 'DNI Tutor', 'Telefono Tutor', 'Nombre Tutor 2', 'DNI Tutor 2', 'Telefono Tutor 2',  
       'Es Socio Nuevo', 'Modalidad Socio', 'Entidad Bancaria', 'Titular Cuenta', 'IBAN',
       'Consentimiento Fotos Videos'
     ];
@@ -89,6 +89,9 @@ export default function AdminPanel({
       reg.tutor ? `"${reg.tutor.nombre.replace(/"/g, '""')}"` : '',
       reg.tutor ? reg.tutor.dni : '',
       reg.tutor ? reg.tutor.telefono : '',
+      reg.tutorAlt && reg.tutorAlt.nombre ? `"${reg.tutorAlt.nombre.replace(/"/g, '""')}"` : '',
+      reg.tutorAlt  && reg.tutorAlt.dni? reg.tutorAlt.dni : '',
+      reg.tutorAlt  && reg.tutorAlt.telefono? reg.tutorAlt.telefono : '',
       reg.esNuevoSocio ? 'Sí' : 'No',
       reg.modalidadSocio || 'N/A',
       `"${reg.banco.entidad.replace(/"/g, '""')}"`,
@@ -134,6 +137,9 @@ export default function AdminPanel({
       'Nombre Tutor': reg.tutor?.nombre || '---',
       'DNI Tutor': reg.tutor?.dni || '---',
       'Teléfono Tutor': reg.tutor?.telefono || '---',
+      'Nombre Tutor 2': reg.tutorAlt?.nombre || '---',
+      'DNI Tutor 2': reg.tutorAlt?.dni || '---',
+      'Teléfono Tutor 2': reg.tutorAlt?.telefono || '---',
       'Es Socio Nuevo': reg.esNuevoSocio ? 'Sí' : 'No',
       'Modalidad Socio': reg.modalidadSocio || 'N/A',
       'Entidad Bancaria': reg.banco.entidad,
@@ -185,7 +191,7 @@ export default function AdminPanel({
     doc.setFont('Helvetica', 'normal');
     doc.setFontSize(8);
     doc.setTextColor(190, 210, 200);
-    doc.text("Escuela de Música Santa Cecilia • Avda. de la Pau, 4 - 03698 Agost (Alicante)", 15, 18);
+    doc.text("Escuela de Música Santa Cecilia • Avenida de Alicante, 23 - 03698 Agost (Alicante)", 15, 18);
     
     doc.setFont('Helvetica', 'bold');
     doc.setFontSize(14);
@@ -263,7 +269,16 @@ export default function AdminPanel({
       drawField("DNI/NIE del tutor", reg.tutor.dni, 110, y);
       drawField("Teléfono tutor", reg.tutor.telefono, 155, y);
       y += 12;
+      
+      if (reg.esMenor && reg.tutorAlt && reg.tutorAlt.nombre) {
+        drawField("Nombre del tutor", reg.tutorAlt.nombre, 15, y);
+        drawField("DNI/NIE del tutor", reg.tutorAlt.dni, 110, y);
+        drawField("Teléfono tutor", reg.tutorAlt.telefono, 155, y);
+        y += 12;
+      }
     }
+        
+
 
     // 3. SOCIO / CUOTAS
     y = drawSectionHeader("3. ALTA DE SOCIO Y MODALIDAD", y);
@@ -685,6 +700,37 @@ export default function AdminPanel({
       </div>
     </div>
   </div>
+           {selectedReg.tutorAlt && selectedReg.tutorAlt.nombre && (   
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <span className="text-[11px] font-bold text-on-surface-variant block uppercase">
+        Nombre Tutor
+      </span>
+      <span className="text-on-surface font-semibold">
+        {selectedReg.tutorAlt.nombre}
+      </span>
+    </div>
+
+    <div className="grid grid-cols-2 gap-2">
+      <div>
+        <span className="text-[11px] font-bold text-on-surface-variant block uppercase">
+          DNI Tutor
+        </span>
+        <span className="text-on-surface font-mono font-medium">
+          {selectedReg.tutorAlt.dni}
+        </span>
+      </div>
+
+      <div>
+        <span className="text-[11px] font-bold text-on-surface-variant block uppercase">
+          Teléfono
+        </span>
+        <span className="text-on-surface font-medium">
+          {selectedReg.tutorAlt.telefono}
+        </span>
+      </div>
+    </div>
+  </div>)}
 </div>
               )}
 

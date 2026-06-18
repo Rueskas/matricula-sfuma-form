@@ -37,6 +37,7 @@ export interface Registration {
   // Minor details (optional, conditional)
   esMenor: boolean;
   tutor?: TutorInfo;
+  tutorAlt?: TutorInfo;
   
   // New Membership indicator
   esNuevoSocio: boolean;

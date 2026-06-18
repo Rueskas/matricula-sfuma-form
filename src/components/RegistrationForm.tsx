@@ -25,7 +25,7 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
   const [dniNia, setDniNia] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [direccion, setDireccion] = useState('');
-  const [codigoPostal, setCodigoPostal] = useState('');
+  const [codigoPostal, setCodigoPostal] = useState('03698');
   const [localidad, setLocalidad] = useState('Agost');
   const [provincia, setProvincia] = useState('Alicante');
   const [telefono, setTelefono] = useState('');
@@ -36,6 +36,9 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
   const [tutorNombre, setTutorNombre] = useState('');
   const [tutorDni, setTutorDni] = useState('');
   const [tutorTelefono, setTutorTelefono] = useState('');
+  const [tutorNombreAlt, setTutorNombreAlt] = useState('');
+  const [tutorDniAlt, setTutorDniAlt] = useState('');
+  const [tutorTelefonoAlt, setTutorTelefonoAlt] = useState('');
 
   // Whether they are a new member (esNuevoSocio)
   const [esNuevoSocio, setEsNuevoSocio] = useState(false);
@@ -168,6 +171,11 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
           telefono: tutorTelefono
         } : undefined,
         esNuevoSocio,
+        tutorAlt: esMenor ? {
+          nombre: tutorNombreAlt,
+          dni: tutorDniAlt,
+          telefono: tutorTelefonoAlt
+        } : undefined,
         modalidadSocio: esNuevoSocio ? modalidadSocio : undefined,
         banco: {
           entidad: bancoEntidad,
@@ -184,13 +192,8 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
 
       setIsSubmitting(false);
       setShowSuccessToast(true);
-
-      // Toast clean up and fields clear
-      setTimeout(() => {
-        setShowSuccessToast(false);
-        // Clear all fields for the next enrollment
-        clearForm();
-      }, 4000);
+      clearForm();
+      
     }, 1500);
   };
 
@@ -199,7 +202,7 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
     setDniNia('');
     setFechaNacimiento('');
     setDireccion('');
-    setCodigoPostal('');
+    setCodigoPostal('03698');
     setLocalidad('Agost');
     setProvincia('Alicante');
     setTelefono('');
@@ -208,6 +211,9 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
     setTutorNombre('');
     setTutorDni('');
     setTutorTelefono('');
+    setTutorNombreAlt('');
+    setTutorDniAlt('');
+    setTutorTelefonoAlt('');
     setEsNuevoSocio(false);
     setModalidadSocio('individual');
     setBancoEntidad('');
@@ -540,6 +546,55 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
                     {errors.tutorTelefono && <p className="text-rose-600 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" />{errors.tutorTelefono}</p>}
                   </div>
                 </div>
+
+                <div>
+                  <label htmlFor="tutor-name" className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">
+                    Nombre y apellidos del padre, madre o tutor legal 
+                  </label>
+                  <input
+                    id="tutor-name"
+                    type="text"
+                    value={tutorNombreAlt}
+                    onChange={(e) => setTutorNombreAlt(e.target.value)}
+                    placeholder="Nombre completo del tutor"
+                    required={esMenor}
+                    className={`w-full px-4 py-3 rounded-lg border bg-white focus:ring-0 focus:border-primary transition-all border-[#c0c8c2]` }
+                  />
+                                 </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="tutor-dni" className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">
+                      DNI del tutor legal 
+                    </label>
+                    <input
+                      id="tutor-dni"
+                      type="text"
+                      value={tutorDniAlt}
+                      onChange={(e) => setTutorDniAlt(e.target.value)}
+                      placeholder="12345678A"
+                      required={esMenor}
+                      className={`w-full px-4 py-3 rounded-lg border bg-white focus:ring-0 focus:border-primary transition-all border-[#c0c8c2]
+                      `}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="tutor-phone" className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">
+                      Teléfono de contacto del tutor
+                    </label>
+                    <input
+                      id="tutor-phone"
+                      type="tel"
+                      value={tutorTelefonoAlt}
+                      onChange={(e) => setTutorTelefonoAlt(e.target.value)}
+                      placeholder="+34 600 000 000"
+                      required={esMenor}
+                      className={`w-full px-4 py-3 rounded-lg border bg-white focus:ring-0 focus:border-primary transition-all border-[#c0c8c2]
+                      `}
+                    />
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -810,7 +865,7 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
           
           <div className="space-y-3 font-sans">
             <p className="text-xs md:text-sm leading-relaxed text-slate-600">
-              De conformidad con lo dispuesto en el <strong>Reglamento General de Protección de Datos (RGPD) - Reglamento (UE) 2016/679</strong> y la <strong>Ley Orgánica 3/2018 (LOPDGDD)</strong>, sus datos identificativos, de contacto y bancarios serán tratados de forma estrictamente segura y encriptada por la Sociedad Filarmónica Unión Musical de Agost con fines exclusivamente administrativos, escolares y de cobros contractuales de cuotas del alumnado.
+              De conformidad con lo dispuesto en el <strong>Reglamento General de Protección de Datos (RGPD) - Reglamento (UE) 2016/679</strong> y la <strong>Ley Orgánica 3/2018 (LOPDGDD)</strong>, sus datos identificativos, de contacto y bancarios serán tratados de forma segura por la Sociedad Filarmónica Unión Musical de Agost con fines exclusivamente administrativos, escolares y de cobros contractuales de cuotas del alumnado.
             </p>
             {onNavigateToPrivacy && (
               <div className="p-4 bg-slate-50 border border-slate-150 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -825,7 +880,7 @@ export default function RegistrationForm({ onRegister, onNavigateToPrivacy }: Re
                   onClick={onNavigateToPrivacy}
                   className="bg-[#001c11] hover:bg-[#003322] text-white font-bold text-xs uppercase tracking-widest px-4 py-2.5 rounded-xs transition-all shrink-0 cursor-pointer text-center"
                 >
-                  Leer Política de Privacidad Estructurada
+                  Leer Política de Privacidad
                 </button>
               </div>
             )}

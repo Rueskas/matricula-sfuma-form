@@ -30,11 +30,11 @@ export default function Footer({ onNavigate, isAdminModeEnabled }: FooterProps) 
 
           {/* Contact Details from design HTML */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 text-center md:text-left text-[10px] text-gray-500 font-bold uppercase tracking-wider">
-            <span>Dirección: Avda. de la Pau, 4. Agost (Alicante)</span>
+            <span>Dirección: Avenida de Alicante, 23. Agost (Alicante)</span>
             <span className="hidden sm:inline">•</span>
-            <span>Tel: 96 569 11 00</span>
+            <span>Tel: 965 69 10 36</span>
             <span className="hidden sm:inline">•</span>
-            <span>Email: info@musicaagost.es</span>
+            <span>Email: unionmusicalagost@hotmail.com</span>
           </div>
 
           {/* Action Links */}
